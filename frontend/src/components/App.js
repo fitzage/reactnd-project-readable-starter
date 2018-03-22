@@ -1,21 +1,15 @@
-import React, { Component } from 'react'
+import React, { Component, PropTypes } from 'react'
 import '../App.css'
 import * as PostsAPI from '../utils/api'
 
 class App extends Component {
-
-  // comment '894tuq4ut84ut8v4t8wun89g'
-  // post '8xf0y6ziyjabvozdd253nd'
-  componentDidMount () {
-    PostsAPI.deleteComment('894tuq4ut84ut8v4t8wun89g').then((posts) => {
-      console.log(posts)
-    })
+  static propTypes = {
+    children: PropTypes.object.isRequired
   }
-
   render() {
     return (
       <div className="App">
-      <h1></h1>
+        {this.props.children}
       </div>
     );
   }
