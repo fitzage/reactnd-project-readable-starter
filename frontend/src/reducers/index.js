@@ -6,17 +6,18 @@ const initialState = {
   posts: []
 }
 
-function categoryReducer(state = initialState.categories, action) {
-  switch(action.type) {
+function categoryReducer (state = initialState.categories, action) {
+  const { categories, type } = action
+  switch(type) {
     case types.LOAD_CATEGORIES_SUCCESS:
-      return action.categories
+      return [...categories]
     default:
       return state
   }
 }
 
 const rootReducer = combineReducers({
-  categoryReducer
+  categories: categoryReducer,
 })
 
 export default rootReducer

@@ -5,8 +5,6 @@ export function loadCategories() {
   return function(dispatch) {
     return postsAPI.getCategories().then(categories => {
       dispatch(loadCategoriesSuccess(categories))
-    }).catch(error => {
-      throw(error)
     })
   }
 }

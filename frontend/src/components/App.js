@@ -1,14 +1,28 @@
 import React, { Component } from 'react'
-import { Route } from 'react-router-dom'
+import { Route, Link, withRouter } from 'react-router-dom'
+import { connect } from 'react-redux'
+import { loadCategories } from '../actions'
 import SinglePost from './SinglePost'
 import ShowCategory from './ShowCategory'
 import ListPosts from './ListPosts'
 import '../App.css'
+import * as postsAPI from '../utils/api'
 
 class App extends Component {
+  componentDidMount() {
+    this.props.loadCategories();
+  }
   render() {
+    const { categories } = this.props
     return (
       <div className="App">
+        <ul class="nav">
+        {categories.map((category) => (
+          <li key={category.name}>
+            <Link to={category.path} >{category.name}</Link>
+          </li>
+        ))}
+        </ul>
         <Route path="/" exact render={() => (
           <ListPosts />
         )} />
@@ -23,4 +37,16 @@ class App extends Component {
   }
 }
 
-export default App;
+function mapStateToProps(state) {
+  return {
+    categories: state.categories
+  }
+}
+
+function mapDispatchToProps (dispatch) {
+  return {
+    loadCategories: () => dispatch(loadCategories()),
+  }
+}
+
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(App))
