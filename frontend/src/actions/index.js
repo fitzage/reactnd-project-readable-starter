@@ -1,4 +1,4 @@
-import postsAPI from '../utils/api'
+import * as postsAPI from '../utils/api'
 import * as types from './actionTypes'
 
 export function loadCategories() {

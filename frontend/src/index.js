@@ -1,20 +1,19 @@
-import React from 'react';
-import './index.css';
-import { render } from 'react-dom'
+import React from 'react'
+import './index.css'
+import ReactDOM from 'react-dom'
 import { Provider } from 'react-redux'
-import { Router, browserHistory } from 'react-router'
-import routes from './routes'
+import { BrowserRouter } from 'react-router-dom'
+import registerServiceWorker from './registerServiceWorker'
 import configureStore from './store/configureStore'
-import { loadCategories } from './actions'
+import App from './components/App'
 
 const store = configureStore()
+console.log(store.getState())
 
-store.dispatch(loadCategories())
-
-render(
+ReactDOM.render(
   <Provider store={store}>
-    <Router history={browserHistory} routes={routes} />
+    <BrowserRouter><App /></BrowserRouter>
   </Provider>,
   document.getElementById('root')
- );
-
+)
+registerServiceWorker()

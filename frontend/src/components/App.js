@@ -1,15 +1,23 @@
-import React, { Component, PropTypes } from 'react'
+import React, { Component } from 'react'
+import { Route } from 'react-router-dom'
+import SinglePost from './SinglePost'
+import ShowCategory from './ShowCategory'
+import ListPosts from './ListPosts'
 import '../App.css'
-import * as PostsAPI from '../utils/api'
 
 class App extends Component {
-  static propTypes = {
-    children: PropTypes.object.isRequired
-  }
   render() {
     return (
       <div className="App">
-        {this.props.children}
+        <Route path="/" exact render={() => (
+          <ListPosts />
+        )} />
+        <Route path="/:category" exact render={() => (
+          <ShowCategory />
+        )} />
+        <Route path="/:category/:postId" exact render={() => (
+          <SinglePost />
+        )} />
       </div>
     );
   }

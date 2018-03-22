@@ -4,7 +4,7 @@ import thunk from 'redux-thunk'
 
 export default function configureStore() {
   return createStore(
-    rootRedurec,
+    rootReducer,
     applyMiddleware(thunk)
   )
 }
