@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { Route, Link, withRouter } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { loadPosts } from '../actions'
+import Moment from 'react-moment'
 
 class ListPosts extends Component {
   componentDidMount() {
@@ -21,8 +22,8 @@ class ListPosts extends Component {
         {posts.map((post) => (
           <li className="post" key={post.id}>
             <h2>{post.title}</h2>
-            {post.body}
-            {post.timestamp}
+            <p>{post.body}</p>
+            <p className="meta">{post.author} | <Moment format="MMMM D, YYYY, h:mm a">{post.timestamp}</Moment></p>
           </li>
         ))}
         </ul>
