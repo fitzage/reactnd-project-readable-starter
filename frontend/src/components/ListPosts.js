@@ -4,9 +4,14 @@ import { connect } from 'react-redux'
 import { loadPosts } from '../actions'
 
 class ListPosts extends Component {
+  componentDidMount() {
+    this.props.loadPosts(this.props.match.params.category)
+  }
+
   componentWillReceiveProps() {
     this.props.loadPosts(this.props.match.params.category)
   }
+
   render() {
     const { category } = this.props.match.params
     const { posts } = this.props
@@ -14,7 +19,11 @@ class ListPosts extends Component {
       <div><h1>{category}</h1>
         <ul className="posts">
         {posts.map((post) => (
-          <li className="post">{post.title}</li>
+          <li className="post" key={post.id}>
+            <h2>{post.title}</h2>
+            {post.body}
+            {post.timestamp}
+          </li>
         ))}
         </ul>
       </div>

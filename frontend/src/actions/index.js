@@ -17,9 +17,7 @@ export function loadCategoriesSuccess(categories) {
 }
 
 export function loadPosts(category) {
-  console.log(category)
   return function(dispatch) {
-    console.log(category)
     return postsAPI.getPosts(category).then(posts => {
       dispatch(loadPostsSuccess(posts))
     })
