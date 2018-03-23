@@ -16,8 +16,19 @@ function categoryReducer (state = initialState.categories, action) {
   }
 }
 
+function postsReducer (state = initialState.posts, action) {
+  const { posts, type } = action
+  switch(type) {
+    case types.LOAD_POSTS_SUCCESS:
+      return [...posts]
+    default:
+      return state
+  }
+}
+
 const rootReducer = combineReducers({
   categories: categoryReducer,
+  posts: postsReducer,
 })
 
 export default rootReducer

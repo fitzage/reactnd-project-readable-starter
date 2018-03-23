@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { Route, Link, withRouter } from 'react-router-dom'
 import { connect } from 'react-redux'
-import { loadCategories } from '../actions'
+import { loadCategories, loadPosts } from '../actions'
 import SinglePost from './SinglePost'
 import ShowCategory from './ShowCategory'
 import ListPosts from './ListPosts'
@@ -16,7 +16,7 @@ class App extends Component {
     const { categories } = this.props
     return (
       <div className="App">
-        <ul class="nav">
+        <ul className="nav">
         {categories.map((category) => (
           <li key={category.name}>
             <Link to={category.path} >{category.name}</Link>
@@ -39,7 +39,7 @@ class App extends Component {
 
 function mapStateToProps(state) {
   return {
-    categories: state.categories
+    categories: state.categories,
   }
 }
 

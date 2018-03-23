@@ -15,3 +15,20 @@ export function loadCategoriesSuccess(categories) {
     categories
   }
 }
+
+export function loadPosts(category) {
+  console.log(category)
+  return function(dispatch) {
+    console.log(category)
+    return postsAPI.getPosts(category).then(posts => {
+      dispatch(loadPostsSuccess(posts))
+    })
+  }
+}
+
+export function loadPostsSuccess(posts) {
+  return {
+    type: types.LOAD_POSTS_SUCCESS,
+    posts
+  }
+}
