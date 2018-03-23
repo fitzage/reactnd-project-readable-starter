@@ -9,21 +9,32 @@ class ListPosts extends Component {
     this.props.loadPosts(this.props.match.params.category)
   }
 
-  componentWillReceiveProps() {
-    this.props.loadPosts(this.props.match.params.category)
+  componentWillReceiveProps(nextProps) {
+    const previousCategory = this.props.match.params.category
+    const nextCategory = nextProps.match.params.category
+    previousCategory !== nextCategory && this.props.loadPosts(nextCategory)
   }
 
   render() {
     const { category } = this.props.match.params
     const { posts } = this.props
+    const postLink = (id) => `/${category}/${id}`
     return (
       <div><h1>{category}</h1>
         <ul className="posts">
         {posts.map((post) => (
           <li className="post" key={post.id}>
-            <h2>{post.title}</h2>
+            <h2><Link to={postLink(post.id)}>{post.title}</Link></h2>
             <p>{post.body}</p>
-            <p className="meta">{post.author} | <Moment format="MMMM D, YYYY, h:mm a">{post.timestamp}</Moment></p>
+            <div className="meta">
+              <p className="author-time"><span className="author">{post.author}</span>
+                <span className="date-time"><Moment format="MMMM D, YYYY, h:mm a">{post.timestamp}</Moment></span>
+              </p>
+              <p className="vote-comments">
+                <span className="vote"></span>
+                <span className="comments">Comments: {post.commentCount}</span>
+              </p>
+            </div>
           </li>
         ))}
         </ul>
