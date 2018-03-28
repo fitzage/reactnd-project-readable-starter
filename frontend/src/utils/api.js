@@ -1,4 +1,4 @@
-const token = 'tsthststhshsth'
+const token = 'tssthsththststhshsth'
 const url = 'http://localhost:3001'
 
 const headers = {

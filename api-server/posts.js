@@ -7,7 +7,11 @@ const defaultData = {
     id: '8xf0y6ziyjabvozdd253nd',
     timestamp: 1467166872634,
     title: 'Udacity is the best place to learn React',
-    body: 'Everyone says so after all.',
+    body: `Bacon ipsum dolor amet corned beef filet mignon short loin ground round frankfurter shoulder. Prosciutto short ribs meatball corned beef venison shank, swine pig t-bone meatloaf bresaola tenderloin jowl. Sausage andouille jerky filet mignon fatback turkey. Shoulder buffalo doner, pork chop bresaola chicken cupim drumstick bacon picanha strip steak.
+
+    Ball tip bresaola biltong, pork loin buffalo ground round strip steak. Pork belly alcatra pig, spare ribs cupim sirloin turducken ground round tri-tip. Beef swine salami, filet mignon shoulder kielbasa cow ball tip leberkas burgdoggen pork belly hamburger biltong prosciutto. Venison boudin prosciutto, bresaola meatball ham spare ribs hamburger ham hock short loin jerky doner. Pork landjaeger boudin jowl shankle t-bone meatloaf.
+
+    Strip steak doner tri-tip boudin, ball tip porchetta alcatra buffalo salami landjaeger meatball pork. Shoulder andouille buffalo bresaola turducken, porchetta bacon doner t-bone ham turkey meatball prosciutto. Capicola hamburger landjaeger prosciutto shoulder, cow kevin pastrami. Tenderloin biltong alcatra pancetta, salami prosciutto ball tip hamburger.`,
     author: 'thingtwo',
     category: 'react',
     voteScore: 6,

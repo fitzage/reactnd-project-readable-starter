@@ -3,6 +3,7 @@ import { Route, Link, withRouter } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { loadPosts } from '../actions'
 import Moment from 'react-moment'
+import Truncate from 'react-truncate'
 
 class ListPosts extends Component {
   render() {
@@ -17,9 +18,12 @@ class ListPosts extends Component {
         {filteredPosts.map((post) => (
           <li className="post" key={post.id}>
             <h2><Link to={postLink(post.category, post.id)}>{post.title}</Link></h2>
-            <p>{post.body}</p>
+            <Truncate lines={3} ellipsis={<span className="ellipsis">...</span>}>
+            {post.body}
+            </Truncate>
             <div className="meta">
-              <p className="author-time"><span className="author">{post.author}</span>
+              <p className="author-time">
+                <span className="author">{post.author}</span>
                 <span className="date-time"><Moment format="MMMM D, YYYY, h:mm a">{post.timestamp}</Moment></span>
               </p>
               <p className="vote-comments">
