@@ -21,7 +21,7 @@ class Nav extends Component  {
         <li className="home"><Link to="/">Home</Link></li>
       {categories.map((category) => (
         <li key={category.name}>
-          <Link to={category.path} >{category.name}</Link>
+          <Link to={`/${category.path}`} >{category.name}</Link>
         </li>
       ))}
       </ul>
