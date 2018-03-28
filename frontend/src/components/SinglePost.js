@@ -4,15 +4,19 @@ import { connect } from 'react-redux'
 import { loadPosts } from '../actions'
 
 class SinglePost extends Component {
-  componentWillMount() {
-    if (this.props.posts.length === 0) {
-      this.props.loadPosts()
-    }
-  }
   render() {
     const { posts } = this.props
+    const { postId } = this.props.match.params
+    const post = posts.find((post) => post.id === postId)
     return (
-      <div><h1></h1></div>
+      <div>
+        {post &&
+        <div className="single-post">
+          <h1>{post.title}</h1>
+          <p>{post.text}</p>
+        </div>
+        }
+      </div>
     )
   }
 }
@@ -23,10 +27,4 @@ function mapStateToProps(state) {
   }
 }
 
-function mapDispatchToProps (dispatch) {
-  return {
-    loadPosts: () => dispatch(loadPosts()),
-  }
-}
-
-export default withRouter(connect(mapStateToProps, mapDispatchToProps)(SinglePost))
+export default withRouter(connect(mapStateToProps)(SinglePost))

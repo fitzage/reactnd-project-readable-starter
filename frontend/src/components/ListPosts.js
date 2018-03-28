@@ -10,7 +10,6 @@ class ListPosts extends Component {
     const { posts } = this.props
     const postLink = (postCategory, postId) => `/${postCategory}/${postId}`
     let filteredPosts
-    console.log(category)
     category ? filteredPosts = posts.filter((post) => post.category === category) : filteredPosts = posts
     return (
       <div><h1>{category}</h1>
