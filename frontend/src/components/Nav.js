@@ -10,7 +10,9 @@ import * as postsAPI from '../utils/api'
 
 class Nav extends Component  {
   componentDidMount() {
-    this.props.loadCategories();
+    if (this.props.categories.length === 0) {
+      this.props.loadCategories();
+    }
   }
   render () {
     const { categories } = this.props
