@@ -4,8 +4,26 @@ import { connect } from 'react-redux'
 import { loadPosts, votePost, deletePost } from '../actions'
 import Moment from 'react-moment'
 import Truncate from 'react-truncate'
+import Modal from 'react-modal'
+import serializeForm from 'form-serialize'
+import PostForm from './PostForm'
 
 class ListPosts extends Component {
+  state = {
+    postModalOpen: false,
+    postId: null,
+  }
+  openPostModal = (postId) => {
+    this.setState(() => ({
+      postModalOpen: true,
+      postId
+    }))
+  }
+  closePostModal = () => {
+    this.setState(() =>({
+      postModalOpen: false,
+    }))
+  }
   upVote = (id) => {
     this.props.votePost(id, {option: 'upVote'})
   }
@@ -18,15 +36,21 @@ class ListPosts extends Component {
   render() {
     const { category } = this.props.match.params
     const { posts } = this.props
+    const { postModalOpen, postId } = this.state
     const postLink = (postCategory, postId) => `/${postCategory}/${postId}`
     let filteredPosts
     category ? filteredPosts = posts.filter((post) => post.category === category) : filteredPosts = posts
     return (
       <div><h1>{category}</h1>
+        <Link to="#" onClick={() => this.openPostModal()} className="add-post">New Post</Link>
         <ul className="posts">
         {filteredPosts.map((post) => (
           <li className="post" key={post.id}>
-            <h2><Link to={postLink(post.category, post.id)}>{post.title}</Link><Link to="#" onClick={() => this.deletePost(post.id)}>Delete</Link></h2>
+            <h2>
+              <Link to={postLink(post.category, post.id)}>{post.title}</Link>
+              <Link to="#" onClick={() => this.openPostModal(post.id)} className="edit-post">Edit</Link>
+              <Link to="#" onClick={() => this.deletePost(post.id)} className="delete-post">Delete</Link>
+            </h2>
             <Truncate lines={3} ellipsis={<span className="ellipsis">...</span>}>
             {post.body}
             </Truncate>
@@ -47,6 +71,18 @@ class ListPosts extends Component {
           </li>
         ))}
         </ul>
+        <Modal
+          className='modal'
+          overlayClassName='overlay'
+          isOpen={postModalOpen}
+          contentLabel='Modal'
+        >
+          <Link className="close-modal" to="#" onClick={this.closePostModal}>X</Link>
+          <PostForm
+            postId={postId}
+            closePostModal={this.closePostModal}
+          />
+        </Modal>
       </div>
     )
   }

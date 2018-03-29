@@ -38,6 +38,11 @@ function postsReducer (state = initialState.posts, action) {
         ...state.slice(0,index),
         ...state.slice(index + 1),
       ]
+    case types.ADD_POST:
+      return [
+        ...state,
+        post
+      ]
     default:
       return state
   }

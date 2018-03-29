@@ -60,3 +60,33 @@ export function deletePostSuccess(post) {
     post
   }
 }
+
+export function addPost(post) {
+  return function(dispatch) {
+    return postsAPI.addPost(post).then(post => {
+      dispatch(addPostSuccess(post))
+    })
+  }
+}
+
+export function addPostSuccess(post) {
+  return {
+    type: types.ADD_POST,
+    post
+  }
+}
+
+export function editPost(post) {
+  return function(dispatch) {
+    return postsAPI.editPost(post).then(post => {
+      dispatch(editPostSuccess(post))
+    })
+  }
+}
+
+export function editPostSuccess(post) {
+  return {
+    type: types.EDIT_POST,
+    post
+  }
+}
