@@ -4,8 +4,15 @@ import { connect } from 'react-redux'
 import { loadPosts } from '../actions'
 import Moment from 'react-moment'
 import Truncate from 'react-truncate'
+import { votePost } from '../actions'
 
 class ListPosts extends Component {
+  upVote = (id) => {
+    this.props.votePost(id, {option: 'upVote'})
+  }
+  downVote = (id) => {
+    this.props.votePost(id, {option: 'downVote'})
+  }
   render() {
     const { category } = this.props.match.params
     const { posts } = this.props
@@ -27,7 +34,11 @@ class ListPosts extends Component {
                 <span className="date-time"><Moment format="MMMM D, YYYY, h:mm a">{post.timestamp}</Moment></span>
               </p>
               <p className="vote-comments">
-                <span className="vote"></span>
+                <span className="vote">
+                  <button onClick={() => this.upVote(post.id)}>upVote</button>
+                  <button onClick={() => this.downVote(post.id)}>downVote</button>
+                  {post.voteScore}
+                </span>
                 <span className="comments">Comments: {post.commentCount}</span>
               </p>
             </div>
@@ -45,4 +56,10 @@ function mapStateToProps(state) {
   }
 }
 
-export default withRouter(connect(mapStateToProps)(ListPosts))
+function mapDispatchToProps (dispatch) {
+  return {
+    votePost: (id, vote) => dispatch(votePost(id, vote)),
+  }
+}
+
+export default withRouter(connect(mapStateToProps,mapDispatchToProps)(ListPosts))

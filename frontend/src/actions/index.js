@@ -30,3 +30,18 @@ export function loadPostsSuccess(posts) {
     posts
   }
 }
+
+export function votePost(postId, vote) {
+  return function(dispatch) {
+    return postsAPI.votePost(postId, vote).then(post => {
+      dispatch(votePostSuccess(post))
+    })
+  }
+}
+
+export function votePostSuccess(post) {
+  return {
+    type: types.VOTE_POST,
+    post
+  }
+}

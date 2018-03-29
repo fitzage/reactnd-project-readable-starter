@@ -17,10 +17,20 @@ function categoryReducer (state = initialState.categories, action) {
 }
 
 function postsReducer (state = initialState.posts, action) {
-  const { posts, type } = action
+  const { posts, type, post } = action
   switch(type) {
     case types.LOAD_POSTS_SUCCESS:
       return [...posts]
+    case types.VOTE_POST:
+      const index = state.findIndex(obj => obj.id === post.id)
+      return [
+        ...state.slice(0,index),
+        {
+          ...state[index],
+          voteScore: post.voteScore
+        },
+        ...state.slice(index + 1)
+      ]
     default:
       return state
   }
