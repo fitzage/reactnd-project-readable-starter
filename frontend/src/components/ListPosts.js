@@ -37,8 +37,8 @@ class ListPosts extends Component {
               </p>
               <p className="vote-comments">
                 <span className="vote">
-                  <button onClick={() => this.upVote(post.id)}>upVote</button>
-                  <button onClick={() => this.downVote(post.id)}>downVote</button>
+                  <Link to="#" onClick={() => this.upVote(post.id)}>&#128077;</Link>
+                  <Link to="#" onClick={() => this.downVote(post.id)}>&#128078;</Link>
                   {post.voteScore}
                 </span>
                 <span className="comments">Comments: {post.commentCount}</span>
