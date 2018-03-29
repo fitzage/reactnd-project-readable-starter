@@ -11,7 +11,7 @@ export function loadCategories() {
 
 export function loadCategoriesSuccess(categories) {
   return {
-    type: types.LOAD_CATEGORIES_SUCCESS,
+    type: types.LOAD_CATEGORIES,
     categories
   }
 }
@@ -26,7 +26,7 @@ export function loadPosts() {
 
 export function loadPostsSuccess(posts) {
   return {
-    type: types.LOAD_POSTS_SUCCESS,
+    type: types.LOAD_POSTS,
     posts
   }
 }
@@ -42,6 +42,21 @@ export function votePost(postId, vote) {
 export function votePostSuccess(post) {
   return {
     type: types.VOTE_POST,
+    post
+  }
+}
+
+export function deletePost(postId) {
+  return function(dispatch) {
+    return postsAPI.deletePost(postId).then(post => {
+      dispatch(deletePostSuccess(post))
+    })
+  }
+}
+
+export function deletePostSuccess(post) {
+  return {
+    type: types.DELETE_POST,
     post
   }
 }

@@ -1,10 +1,9 @@
 import React, { Component } from 'react'
 import { Route, Link, withRouter } from 'react-router-dom'
 import { connect } from 'react-redux'
-import { loadPosts } from '../actions'
+import { loadPosts, votePost, deletePost } from '../actions'
 import Moment from 'react-moment'
 import Truncate from 'react-truncate'
-import { votePost } from '../actions'
 
 class ListPosts extends Component {
   upVote = (id) => {
@@ -12,6 +11,9 @@ class ListPosts extends Component {
   }
   downVote = (id) => {
     this.props.votePost(id, {option: 'downVote'})
+  }
+  deletePost = (id) => {
+    this.props.deletePost(id)
   }
   render() {
     const { category } = this.props.match.params
@@ -24,7 +26,7 @@ class ListPosts extends Component {
         <ul className="posts">
         {filteredPosts.map((post) => (
           <li className="post" key={post.id}>
-            <h2><Link to={postLink(post.category, post.id)}>{post.title}</Link></h2>
+            <h2><Link to={postLink(post.category, post.id)}>{post.title}</Link><Link to="#" onClick={() => this.deletePost(post.id)}>Delete</Link></h2>
             <Truncate lines={3} ellipsis={<span className="ellipsis">...</span>}>
             {post.body}
             </Truncate>
@@ -59,6 +61,7 @@ function mapStateToProps(state) {
 function mapDispatchToProps (dispatch) {
   return {
     votePost: (id, vote) => dispatch(votePost(id, vote)),
+    deletePost: (id) => dispatch(deletePost(id)),
   }
 }
 
