@@ -2,17 +2,23 @@ import React, { Component } from 'react'
 import { Link, withRouter } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { votePost, deletePost } from '../actions'
+import Modal from 'react-modal'
+import PostForm from './PostForm'
 
 class SinglePost extends Component {
   state = {
     postModalOpen: false
   }
-  componentDidMount() {
-    console.log(this.props.posts)
-    if (this.props.posts) {
-      const post = this.props.posts.find((post) => post.id === this.props.match.params.postId)
-      console.log(this.props.posts)
-    }
+  openPostModal = (postId) => {
+    this.setState(() => ({
+      postModalOpen: true,
+      postId
+    }))
+  }
+  closePostModal = () => {
+    this.setState(() =>({
+      postModalOpen: false,
+    }))
   }
   upVote = () => {
     this.props.votePost(this.props.match.params.postId, {option: 'upVote'})
@@ -26,6 +32,7 @@ class SinglePost extends Component {
   render() {
     const { posts } = this.props
     const { postId } = this.props.match.params
+    const { postModalOpen } = this.state
     const post = posts.find((post) => post.id === postId)
     return (
       <div>
@@ -33,6 +40,7 @@ class SinglePost extends Component {
         <div className="single-post">
           <h1>
             {post.title}
+            <Link to="#" onClick={() => this.openPostModal(post.id)} className="edit-post">Edit</Link>
             <Link to="/" onClick={() => this.deletePost(postId)} className="delete-post">Delete</Link>
           </h1>
           {post.body}
@@ -46,6 +54,18 @@ class SinglePost extends Component {
           </p>
         </div>
         }
+        <Modal
+          className='modal'
+          overlayClassName='overlay'
+          isOpen={postModalOpen}
+          contentLabel='Modal'
+        >
+          <Link className="close-modal" to="#" onClick={this.closePostModal}>X</Link>
+          <PostForm
+            postId={postId}
+            closePostModal={this.closePostModal}
+          />
+        </Modal>
       </div>
     )
   }

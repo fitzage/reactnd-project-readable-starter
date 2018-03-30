@@ -9,7 +9,7 @@ import '../App.css'
 import { loadPosts } from '../actions'
 
 class App extends Component {
-  componentDidMount() {
+  componentWillMount() {
     this.props.loadPosts()
   }
   render() {
