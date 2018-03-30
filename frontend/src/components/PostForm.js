@@ -44,7 +44,6 @@ class PostForm extends Component {
     obj[name] = value
     this.setState(obj)
   }
-  /* TODO: refactor this so editing works (not as many fields are needed when editing) */
   render() {
     const { posts, postId } = this.props
     const { id, timestamp, title, body, author, category } = this.state
