@@ -53,8 +53,8 @@ export const editPost = (values) =>
   fetch(`${url}/posts/${values.id}`, { method: 'PUT', body: JSON.stringify({title: values.title, body: values.body}), headers})
     .then(res => res.json())
 
-export const editComment = (id, comment) =>
-  fetch(`${url}/comments/${id}`, { method: 'PUT', body: JSON.stringify(comment), headers})
+export const editComment = (values) =>
+  fetch(`${url}/comments/${values.id}`, { method: 'PUT', body: JSON.stringify({body: values.body, timestamp: values.timestamp}), headers})
     .then(res => res.json())
 
 // API functions for deleting data

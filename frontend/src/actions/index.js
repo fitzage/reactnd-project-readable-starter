@@ -90,3 +90,78 @@ export function editPostSuccess(post) {
     post
   }
 }
+
+export function getComments(id) {
+  return function(dispatch) {
+    return postsAPI.getComments(id).then(comments => {
+      dispatch(getCommentsSuccess(comments))
+    })
+  }
+}
+
+export function getCommentsSuccess(comments) {
+  return {
+    type: types.GET_COMMENTS,
+    comments
+  }
+}
+
+export function addComment(comment) {
+  return function(dispatch) {
+    return postsAPI.addComment(comment).then(comment => {
+      dispatch(addCommentSuccess(comment))
+    })
+  }
+}
+
+export function addCommentSuccess(comment) {
+  return {
+    type: types.ADD_COMMENT,
+    comment
+  }
+}
+
+export function editComment(values) {
+  return function(dispatch) {
+    return postsAPI.editComment(values).then(comment => {
+      dispatch(editCommentSuccess(comment))
+    })
+  }
+}
+
+export function editCommentSuccess(comment) {
+  return {
+    type: types.EDIT_COMMENT,
+    comment
+  }
+}
+
+export function deleteComment(commentId) {
+  return function(dispatch) {
+    return postsAPI.deleteComment(commentId).then(comment => {
+      dispatch(deleteCommentSuccess(comment))
+    })
+  }
+}
+
+export function deleteCommentSuccess(comment) {
+  return {
+    type: types.DELETE_COMMENT,
+    comment
+  }
+}
+
+export function voteComment(commentId, vote) {
+  return function(dispatch) {
+    return postsAPI.voteComment(commentId, vote).then(comment => {
+      dispatch(voteCommentSuccess(comment))
+    })
+  }
+}
+
+export function voteCommentSuccess(comment) {
+  return {
+    type: types.VOTE_COMMENT,
+    comment
+  }
+}
