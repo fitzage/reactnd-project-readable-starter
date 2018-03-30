@@ -60,8 +60,8 @@ class ListPosts extends Component {
               </p>
               <p className="vote-comments">
                 <span className="vote">
-                  <Link to="#" onClick={() => this.upVote(post.id)}>&#128077;</Link>
-                  <Link to="#" onClick={() => this.downVote(post.id)}>&#128078;</Link>
+                  <Link to="#" onClick={() => this.upVote(post.id)}>&#8963;</Link>
+                  <Link to="#" onClick={() => this.downVote(post.id)}>&#8964;</Link>
                   {post.voteScore}
                 </span>
                 <span className="comments">Comments: {post.commentCount}</span>

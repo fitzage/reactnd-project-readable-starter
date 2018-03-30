@@ -43,7 +43,7 @@ class PostForm extends Component {
     this.setState(obj)
   }
   render() {
-    const { postId, commentId } = this.props
+    const { commentId } = this.props
     const { id, body, author } = this.state
     return (
       <div className="add-edit-comment">

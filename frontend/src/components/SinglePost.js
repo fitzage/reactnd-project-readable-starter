@@ -68,8 +68,8 @@ class SinglePost extends Component {
           {post.body}
           <p className="vote-comments">
             <span className="vote">
-              <Link to="#" onClick={this.upVote}>&#128077;</Link>
-              <Link to="#" onClick={this.downVote}>&#128078;</Link>
+              <Link to="#" onClick={this.upVote}>&#8963;</Link>
+              <Link to="#" onClick={this.downVote}>&#8964;</Link>
               {post.voteScore}
             </span>
             <span className="comments">Comments: {post.commentCount}</span>
@@ -87,8 +87,8 @@ class SinglePost extends Component {
                 <p>{comment.body}</p>
                 <p className="vote-comments">
                   <span className="vote">
-                    <Link to="#" onClick={() => this.upVoteComment(comment.id)}>&#128077;</Link>
-                    <Link to="#" onClick={() => this.downVoteComment(comment.id)}>&#128078;</Link>
+                    <Link to="#" onClick={() => this.upVoteComment(comment.id)}>&#8963;</Link>
+                    <Link to="#" onClick={() => this.downVoteComment(comment.id)}>&#8964;</Link>
                     {comment.voteScore}
                   </span>
                 </p>
