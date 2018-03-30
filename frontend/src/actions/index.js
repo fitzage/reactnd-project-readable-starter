@@ -76,9 +76,9 @@ export function addPostSuccess(post) {
   }
 }
 
-export function editPost(post) {
+export function editPost(values) {
   return function(dispatch) {
-    return postsAPI.editPost(post).then(post => {
+    return postsAPI.editPost(values).then(post => {
       dispatch(editPostSuccess(post))
     })
   }

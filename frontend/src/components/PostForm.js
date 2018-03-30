@@ -18,11 +18,11 @@ class PostForm extends Component {
   handleSubmit = (e) => {
     e.preventDefault()
     let values = serializeForm(e.target,{hash: true})
-    values.timestamp = this.state.timestamp
     this.props.closePostModal()
     if (this.props.postId) {
       this.props.editPost(values)
     } else {
+      values.timestamp = this.state.timestamp
       this.props.addPost(values)
     }
   }
@@ -65,20 +65,24 @@ class PostForm extends Component {
             value={body}
             onChange={(event) => this.updatePostData(event.target.name,event.target.value)}
           />
-          <input
-            type="text"
-            name="author"
-            placeholder="Author"
-            value={author}
-            onChange={(event) => this.updatePostData(event.target.name,event.target.value)}
-          />
-          <input
-            type="text"
-            name="category"
-            placeholder="Category"
-            value={category}
-            onChange={(event) => this.updatePostData(event.target.name,event.target.value)}
-          />
+          {!postId &&
+            <div>
+            <input
+              type="text"
+              name="author"
+              placeholder="Author"
+              value={author}
+              onChange={(event) => this.updatePostData(event.target.name,event.target.value)}
+            />
+            <input
+              type="text"
+              name="category"
+              placeholder="Category"
+              value={category}
+              onChange={(event) => this.updatePostData(event.target.name,event.target.value)}
+            />
+            </div>
+          }
           <button>{postId ? 'Edit Post' : 'Create Post'}</button>
         </form>
       </div>

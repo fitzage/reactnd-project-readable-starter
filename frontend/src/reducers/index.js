@@ -43,6 +43,13 @@ function postsReducer (state = initialState.posts, action) {
         ...state,
         post
       ]
+    case types.EDIT_POST:
+      index = state.findIndex(obj => obj.id === post.id)
+      return [
+        ...state.slice(0,index),
+        post,
+        ...state.slice(index + 1)
+      ]
     default:
       return state
   }

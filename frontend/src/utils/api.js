@@ -49,8 +49,8 @@ export const voteComment = (id, vote) =>
     .then(res => res.json())
 
 // API functions for editing data
-export const editPost = (id, post) =>
-  fetch(`${url}/posts/${id}`, { method: 'PUT', body: JSON.stringify(post), headers})
+export const editPost = (values) =>
+  fetch(`${url}/posts/${values.id}`, { method: 'PUT', body: JSON.stringify({title: values.title, body: values.body}), headers})
     .then(res => res.json())
 
 export const editComment = (id, comment) =>
