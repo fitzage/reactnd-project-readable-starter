@@ -47,7 +47,11 @@ function postsReducer (state = initialState.posts, action) {
       index = state.findIndex(obj => obj.id === post.id)
       return [
         ...state.slice(0,index),
-        post,
+        {
+          ...state[index],
+          title: post.title,
+          body: post.body
+        },
         ...state.slice(index + 1)
       ]
     default:
