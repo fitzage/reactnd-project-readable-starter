@@ -1,11 +1,10 @@
 import React, { Component } from 'react'
-import { Route, Link, withRouter } from 'react-router-dom'
+import { Link, withRouter } from 'react-router-dom'
 import { connect } from 'react-redux'
-import { loadPosts, votePost, deletePost } from '../actions'
+import { votePost, deletePost } from '../actions'
 import Moment from 'react-moment'
 import Truncate from 'react-truncate'
 import Modal from 'react-modal'
-import serializeForm from 'form-serialize'
 import PostForm from './PostForm'
 
 class ListPosts extends Component {

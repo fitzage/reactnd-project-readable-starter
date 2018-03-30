@@ -1,15 +1,14 @@
 import React, { Component } from 'react'
-import { Route, Link, withRouter } from 'react-router-dom'
+import { withRouter } from 'react-router-dom'
 import { connect } from 'react-redux'
 import serializeForm from 'form-serialize'
-import uuid from 'uuid'
 import { addPost, editPost } from '../actions'
 
 const uuidv1 = require('uuid/v1')
 class PostForm extends Component {
   state = {
     id: uuidv1(),
-    timestamp: (new Date).getTime(),
+    timestamp: (new Date()).getTime(),
     title: '',
     body: '',
     author: '',
@@ -45,8 +44,8 @@ class PostForm extends Component {
     this.setState(obj)
   }
   render() {
-    const { posts, postId } = this.props
-    const { id, timestamp, title, body, author, category } = this.state
+    const { postId } = this.props
+    const { id, title, body, author, category } = this.state
     return (
       <div className="add-edit-post">
         <form onSubmit={this.handleSubmit} className="create-edit-post">

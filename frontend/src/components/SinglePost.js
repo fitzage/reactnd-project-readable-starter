@@ -1,14 +1,27 @@
 import React, { Component } from 'react'
-import { Route, Link, withRouter } from 'react-router-dom'
+import { Link, withRouter } from 'react-router-dom'
 import { connect } from 'react-redux'
-import { votePost } from '../actions'
+import { votePost, deletePost } from '../actions'
 
 class SinglePost extends Component {
+  state = {
+    postModalOpen: false
+  }
+  componentDidMount() {
+    console.log(this.props.posts)
+    if (this.props.posts) {
+      const post = this.props.posts.find((post) => post.id === this.props.match.params.postId)
+      console.log(this.props.posts)
+    }
+  }
   upVote = () => {
     this.props.votePost(this.props.match.params.postId, {option: 'upVote'})
   }
   downVote = () => {
     this.props.votePost(this.props.match.params.postId, {option: 'downVote'})
+  }
+  deletePost = (id) => {
+    this.props.deletePost(id)
   }
   render() {
     const { posts } = this.props
@@ -18,7 +31,10 @@ class SinglePost extends Component {
       <div>
         {post &&
         <div className="single-post">
-          <h1>{post.title}</h1>
+          <h1>
+            {post.title}
+            <Link to="/" onClick={() => this.deletePost(postId)} className="delete-post">Delete</Link>
+          </h1>
           {post.body}
           <p className="vote-comments">
             <span className="vote">
@@ -44,6 +60,7 @@ function mapStateToProps(state) {
 function mapDispatchToProps (dispatch) {
   return {
     votePost: (id, vote) => dispatch(votePost(id, vote)),
+    deletePost: (id) => dispatch(deletePost(id))
   }
 }
 

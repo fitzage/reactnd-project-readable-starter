@@ -1,12 +1,8 @@
 import React, { Component } from 'react'
-import { Route, Link, withRouter } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
-import { loadCategories, loadPosts } from '../actions'
-import SinglePost from './SinglePost'
-import ShowCategory from './ShowCategory'
-import ListPosts from './ListPosts'
+import { loadCategories } from '../actions'
 import '../App.css'
-import * as postsAPI from '../utils/api'
 
 class Nav extends Component  {
   componentDidMount() {
