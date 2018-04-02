@@ -4,6 +4,8 @@ import { connect } from 'react-redux'
 import serializeForm from 'form-serialize'
 import { addPost, editPost } from '../actions'
 
+/* TODO: Close New Post form when navigating to another category */
+
 const uuidv1 = require('uuid/v1')
 class PostForm extends Component {
   state = {
@@ -44,7 +46,7 @@ class PostForm extends Component {
     this.setState(obj)
   }
   render() {
-    const { postId } = this.props
+    const { postId, categories, categoryId } = this.props
     const { id, title, body, author, category } = this.state
     return (
       <div className="add-edit-post">
@@ -72,14 +74,16 @@ class PostForm extends Component {
               value={author}
               onChange={(event) => this.updatePostData(event.target.name,event.target.value)}
             />
-            {/* TODO: Make this a dropdown */}
-            <input
-              type="text"
-              name="category"
-              placeholder="Category"
-              value={category}
+            <select
               onChange={(event) => this.updatePostData(event.target.name,event.target.value)}
-            />
+              name="category"
+              defaultValue={categoryId ? categoryId : 'category'}
+            >
+              <option value="category" disabled>Category</option>
+              {categories.map((category) => (
+                <option value={category.name} key={category.name}>{category.name}</option>
+              ))}
+            </select>
             </div>
           }
           <button>{postId ? 'Edit Post' : 'Create Post'}</button>
@@ -92,6 +96,7 @@ class PostForm extends Component {
 function mapStateToProps(state) {
   return {
     posts: state.posts,
+    categories: state.categories,
   }
 }
 

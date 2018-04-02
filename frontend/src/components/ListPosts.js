@@ -82,6 +82,7 @@ class ListPosts extends Component {
           <PostForm
             postId={postId}
             closePostModal={this.closePostModal}
+            categoryId={category}
           />
         </Modal>
       </div>
