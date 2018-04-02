@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { withRouter } from 'react-router-dom'
+import { withRouter, Redirect } from 'react-router-dom'
 import { connect } from 'react-redux'
 import serializeForm from 'form-serialize'
 import { addPost, editPost } from '../actions'
@@ -19,6 +19,7 @@ class PostForm extends Component {
   handleSubmit = (e) => {
     e.preventDefault()
     let values = serializeForm(e.target,{hash: true})
+    this.props.history.push(`/${values.category}/${values.id}`)
     this.props.closePostModal()
     if (this.props.postId) {
       this.props.editPost(values)
