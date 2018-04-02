@@ -74,8 +74,7 @@ class SinglePost extends Component {
               <Link to="#" onClick={this.downVote}>&#9660;</Link>
               {post.voteScore}
             </span>
-            {/* TODO: Make comment count update as comments are added and deleted. */}
-            <span className="comments">Comments: {post.commentCount}</span>
+            <span className="comments">Comments: {comments.length}</span>
           </p>
           <h2>Comments</h2>
           <Link to="#" onClick={() => this.openCommentModal(post.id)} className="add-comment">New Comment</Link>
