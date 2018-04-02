@@ -47,8 +47,10 @@ class ListPosts extends Component {
           <li className="post" key={post.id}>
             <h2>
               <Link to={postLink(post.category, post.id)}>{post.title}</Link>
-              <Link to="#" onClick={() => this.openPostModal(post.id)} className="edit-post">Edit</Link>
-              <Link to="#" onClick={() => this.deletePost(post.id)} className="delete-post">Delete</Link>
+              <span>
+                <Link to="#" onClick={() => this.openPostModal(post.id)} className="edit-post">&#9998;</Link>
+                <Link to="#" onClick={() => this.deletePost(post.id)} className="delete-post">X</Link>
+              </span>
             </h2>
             <Truncate lines={3} ellipsis={<span className="ellipsis">...</span>}>
             {post.body}
@@ -60,8 +62,8 @@ class ListPosts extends Component {
               </p>
               <p className="vote-comments">
                 <span className="vote">
-                  <Link to="#" onClick={() => this.upVote(post.id)}>&#8963;</Link>
-                  <Link to="#" onClick={() => this.downVote(post.id)}>&#8964;</Link>
+                  <Link to="#" onClick={() => this.upVote(post.id)} className="upvote">&#9650;</Link>
+                  <Link to="#" onClick={() => this.downVote(post.id)} className="downvote">&#9660;</Link>
                   {post.voteScore}
                 </span>
                 <span className="comments">Comments: {post.commentCount}</span>

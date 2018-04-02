@@ -62,16 +62,19 @@ class SinglePost extends Component {
         <div className="single-post">
           <h1>
             {post.title}
-            <Link to="#" onClick={() => this.openPostModal(post.id)} className="edit-post">Edit</Link>
-            <Link to="/" onClick={() => this.deletePost(postId)} className="delete-post">Delete</Link>
+            <span>
+              <Link to="#" onClick={() => this.openPostModal(post.id)} className="edit-post">&#9998;</Link>
+              <Link to="/" onClick={() => this.deletePost(postId)} className="delete-post">X</Link>
+            </span>
           </h1>
           {post.body}
           <p className="vote-comments">
             <span className="vote">
-              <Link to="#" onClick={this.upVote}>&#8963;</Link>
-              <Link to="#" onClick={this.downVote}>&#8964;</Link>
+              <Link to="#" onClick={this.upVote}>&#9650;</Link>
+              <Link to="#" onClick={this.downVote}>&#9660;</Link>
               {post.voteScore}
             </span>
+            {/* TODO: Make comment count update as comments are added and deleted. */}
             <span className="comments">Comments: {post.commentCount}</span>
           </p>
           <h2>Comments</h2>
@@ -81,14 +84,14 @@ class SinglePost extends Component {
               <li key={comment.id}>
                 <p className="author-edit">
                   <span className="author">{comment.author}</span>
-                  <Link to="#" onClick={() => this.openCommentModal(post.id,comment.id)} className="edit-post">Edit</Link>
-                  <Link to="#" onClick={() => this.props.deleteComment(comment.id)} className="delete-post">Delete</Link>
+                  <Link to="#" onClick={() => this.openCommentModal(post.id,comment.id)} className="edit-post">&#9998;</Link>
+                  <Link to="#" onClick={() => this.props.deleteComment(comment.id)} className="delete-post">X</Link>
                 </p>
                 <p>{comment.body}</p>
                 <p className="vote-comments">
                   <span className="vote">
-                    <Link to="#" onClick={() => this.upVoteComment(comment.id)}>&#8963;</Link>
-                    <Link to="#" onClick={() => this.downVoteComment(comment.id)}>&#8964;</Link>
+                    <Link to="#" onClick={() => this.upVoteComment(comment.id)}>&#9650;</Link>
+                    <Link to="#" onClick={() => this.downVoteComment(comment.id)}>&#9660;</Link>
                     {comment.voteScore}
                   </span>
                 </p>

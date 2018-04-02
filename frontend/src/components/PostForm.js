@@ -72,6 +72,7 @@ class PostForm extends Component {
               value={author}
               onChange={(event) => this.updatePostData(event.target.name,event.target.value)}
             />
+            {/* TODO: Make this a dropdown */}
             <input
               type="text"
               name="category"
