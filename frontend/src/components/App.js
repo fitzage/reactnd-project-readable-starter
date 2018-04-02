@@ -3,7 +3,6 @@ import { Route, withRouter } from 'react-router-dom'
 import { connect } from 'react-redux'
 import Nav from './Nav'
 import SinglePost from './SinglePost'
-import ShowCategory from './ShowCategory'
 import ListPosts from './ListPosts'
 import '../App.css'
 import { loadPosts } from '../actions'
@@ -20,7 +19,7 @@ class App extends Component {
           <ListPosts />
         )} />
         <Route path="/:category" exact render={() => (
-          <ShowCategory />
+          <ListPosts />
         )} />
         <Route path="/:category/:postId" exact render={() => (
           <SinglePost />

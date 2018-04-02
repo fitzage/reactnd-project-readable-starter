@@ -40,7 +40,7 @@ class ListPosts extends Component {
     let filteredPosts
     category ? filteredPosts = posts.filter((post) => post.category === category) : filteredPosts = posts
     return (
-      <div><h1>{category}</h1>
+      <div><h1>{category ? `Category: ${category}` : 'All Posts'}</h1>
         <Link to="#" onClick={() => this.openPostModal()} className="add-post">New Post</Link>
         <ul className="posts">
         {filteredPosts.map((post) => (

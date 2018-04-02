@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { withRouter, Redirect } from 'react-router-dom'
+import { withRouter } from 'react-router-dom'
 import { connect } from 'react-redux'
 import serializeForm from 'form-serialize'
 import { addPost, editPost } from '../actions'
@@ -48,7 +48,7 @@ class PostForm extends Component {
   }
   render() {
     const { postId, categories, categoryId } = this.props
-    const { id, title, body, author, category } = this.state
+    const { id, title, body, author } = this.state
     return (
       <div className="add-edit-post">
         <form onSubmit={this.handleSubmit} className="create-edit-post">
