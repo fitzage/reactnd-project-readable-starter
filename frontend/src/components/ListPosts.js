@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Link, withRouter } from 'react-router-dom'
+import { Link, withRouter, Redirect } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { votePost, deletePost } from '../actions'
 import Moment from 'react-moment'
@@ -8,6 +8,7 @@ import Modal from 'react-modal'
 import PostForm from './PostForm'
 
 /* TODO: add confirmation when deleting posts/comments ?? */
+/* TODO: Add sorting function */
 
 class ListPosts extends Component {
   state = {
@@ -36,11 +37,16 @@ class ListPosts extends Component {
   }
   render() {
     const { category } = this.props.match.params
-    const { posts } = this.props
+    const { posts, categories } = this.props
     const { postModalOpen, postId } = this.state
     const postLink = (postCategory, postId) => `/${postCategory}/${postId}`
     let filteredPosts
     category ? filteredPosts = posts.filter((post) => post.category === category) : filteredPosts = posts
+    if (categories.filter((obj) => obj.name === category).length === 0) {
+      return (
+        <Redirect to='/404' />
+      )
+    } else {
     return (
       <div><h1>{category ? `Category: ${category}` : 'All Posts'}</h1>
         <Link to="#" onClick={() => this.openPostModal()} className="add-post">New Post</Link>
@@ -88,13 +94,14 @@ class ListPosts extends Component {
           />
         </Modal>
       </div>
-    )
+    )}
   }
 }
 
 function mapStateToProps(state) {
   return {
     posts: state.posts,
+    categories: state.categories,
   }
 }
 

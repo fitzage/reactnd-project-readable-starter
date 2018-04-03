@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Link, withRouter } from 'react-router-dom'
+import { Link, withRouter, Redirect } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { votePost, deletePost, getComments, deleteComment, voteComment } from '../actions'
 import Modal from 'react-modal'
@@ -54,11 +54,13 @@ class SinglePost extends Component {
   deletePost = (id) => {
     this.props.deletePost(id)
   }
+
   render() {
     const { comments, posts } = this.props
     const { postId } = this.props.match.params
     const { postModalOpen, commentModalOpen, commentId } = this.state
     const post = posts.find((post) => post.id === postId)
+    if (post) {
     return (
       <div>
         {post &&
@@ -130,6 +132,11 @@ class SinglePost extends Component {
         </Modal>
       </div>
     )
+    } else {
+    return (
+      <Redirect to='/404' />
+    )
+    }
   }
 }
 
