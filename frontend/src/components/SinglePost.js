@@ -5,9 +5,9 @@ import { votePost, deletePost, getComments, deleteComment, voteComment } from '.
 import Modal from 'react-modal'
 import PostForm from './PostForm'
 import CommentForm from './CommentForm'
+import Markdown from 'react-markdown'
 
 /* TODO: trigger 404 for nonexistent posts */
-/* TODO: preserve line breaks when displaying posts and comments */
 
 class SinglePost extends Component {
   state = {
@@ -70,7 +70,7 @@ class SinglePost extends Component {
               <Link to="/" onClick={() => this.deletePost(postId)} className="delete-post">X</Link>
             </span>
           </h1>
-          {post.body}
+          <Markdown source={post.body} />
           <p className="vote-comments">
             <span className="vote">
               <Link to="#" onClick={this.upVote}>&#9650;</Link>
@@ -89,7 +89,7 @@ class SinglePost extends Component {
                   <Link to="#" onClick={() => this.openCommentModal(post.id,comment.id)} className="edit-post">&#9998;</Link>
                   <Link to="#" onClick={() => this.props.deleteComment(comment.id)} className="delete-post">X</Link>
                 </p>
-                <p>{comment.body}</p>
+                <Markdown source={comment.body} />
                 <p className="vote-comments">
                   <span className="vote">
                     <Link to="#" onClick={() => this.upVoteComment(comment.id)}>&#9650;</Link>
