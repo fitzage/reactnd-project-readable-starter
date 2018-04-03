@@ -7,6 +7,8 @@ import Truncate from 'react-truncate'
 import Modal from 'react-modal'
 import PostForm from './PostForm'
 
+/* TODO: add confirmation when deleting posts/comments ?? */
+
 class ListPosts extends Component {
   state = {
     postModalOpen: false,
