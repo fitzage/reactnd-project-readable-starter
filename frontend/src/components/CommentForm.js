@@ -49,21 +49,25 @@ class PostForm extends Component {
       <div className="add-edit-comment">
         <form onSubmit={this.handleSubmit} className="create-edit-post">
           <input type="hidden" name="id" value={id}/>
-          <textarea
-            name="body"
-            placeholder="Body"
-            value={body}
-            onChange={(event) => this.updateCommentData(event.target.name,event.target.value)}
-          />
           {!commentId &&
+          <div className="author-category">
+            <label className="author">Name
             <input
               type="text"
               name="author"
-              placeholder="Author"
               value={author}
               onChange={(event) => this.updateCommentData(event.target.name,event.target.value)}
             />
+            </label>
+          </div>
           }
+          <label className="body">Body
+          <textarea
+            name="body"
+            value={body}
+            onChange={(event) => this.updateCommentData(event.target.name,event.target.value)}
+          />
+          </label>
           <button>{commentId ? 'Edit Comment' : 'Create Comment'}</button>
         </form>
       </div>

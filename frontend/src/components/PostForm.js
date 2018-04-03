@@ -5,6 +5,7 @@ import serializeForm from 'form-serialize'
 import { addPost, editPost } from '../actions'
 
 /* TODO: Close New Post form when navigating to another category */
+/* TODO: Validate fields before submit. */
 
 const uuidv1 = require('uuid/v1')
 class PostForm extends Component {
@@ -51,30 +52,28 @@ class PostForm extends Component {
     const { id, title, body, author } = this.state
     return (
       <div className="add-edit-post">
+        <h1>{!postId ? 'New Post' : 'Edit Post'}</h1>
         <form onSubmit={this.handleSubmit} className="create-edit-post">
           <input type="hidden" name="id" value={id}/>
+          <label className="title">Title
           <input
             type="text"
             name="title"
-            placeholder="Title"
             value={title}
             onChange={(event) => this.updatePostData(event.target.name,event.target.value)}
           />
-          <textarea
-            name="body"
-            placeholder="Body"
-            value={body}
-            onChange={(event) => this.updatePostData(event.target.name,event.target.value)}
-          />
+          </label>
           {!postId &&
-            <div>
+            <div className="author-category">
+            <label className="author">Name
             <input
               type="text"
               name="author"
-              placeholder="Author"
               value={author}
               onChange={(event) => this.updatePostData(event.target.name,event.target.value)}
             />
+            </label>
+            <label className="category">Category
             <select
               onChange={(event) => this.updatePostData(event.target.name,event.target.value)}
               name="category"
@@ -85,8 +84,17 @@ class PostForm extends Component {
                 <option value={category.name} key={category.name}>{category.name}</option>
               ))}
             </select>
+            </label>
             </div>
           }
+          <label className="body">Body
+          <textarea
+            name="body"
+            value={body}
+            onChange={(event) => this.updatePostData(event.target.name,event.target.value)}
+          />
+          </label>
+
           <button>{postId ? 'Edit Post' : 'Create Post'}</button>
         </form>
       </div>

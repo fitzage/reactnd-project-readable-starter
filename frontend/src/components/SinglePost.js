@@ -6,6 +6,9 @@ import Modal from 'react-modal'
 import PostForm from './PostForm'
 import CommentForm from './CommentForm'
 
+/* TODO: trigger 404 for nonexistent posts */
+/* TODO: preserve line breaks when displaying posts and comments */
+
 class SinglePost extends Component {
   state = {
     postModalOpen: false,
