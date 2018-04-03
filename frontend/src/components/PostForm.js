@@ -6,6 +6,7 @@ import { addPost, editPost } from '../actions'
 
 /* TODO: Close New Post form when navigating to another category */
 /* TODO: Validate fields before submit. */
+/* TODO: Delete all related comments when deleting parent post. */
 
 const uuidv1 = require('uuid/v1')
 class PostForm extends Component {
