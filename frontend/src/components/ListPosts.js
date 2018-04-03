@@ -42,7 +42,7 @@ class ListPosts extends Component {
     const postLink = (postCategory, postId) => `/${postCategory}/${postId}`
     let filteredPosts
     category ? filteredPosts = posts.filter((post) => post.category === category) : filteredPosts = posts
-    if (categories.filter((obj) => obj.name === category).length === 0) {
+    if (category && categories.filter((obj) => obj.name === category).length === 0) {
       return (
         <Redirect to='/404' />
       )
