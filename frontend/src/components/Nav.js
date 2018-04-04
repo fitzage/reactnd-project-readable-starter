@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, withRouter } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { loadCategories } from '../actions'
 import '../App.css'
@@ -18,8 +18,8 @@ class Nav extends Component  {
       <ul className="nav">
         <li className="home"><Link to="/">Home</Link></li>
       {categories.map((category) => (
-        <li key={category.name}>
-          <Link to={`/${category.path}`} >{category.name}</Link>
+        <li key={category.name} className={this.props.match.params.category === category.path ? 'active' : ''}>
+          <Link to={`/${category.path}`}>{category.name}</Link>
         </li>
       ))}
       </ul>
@@ -39,4 +39,4 @@ function mapDispatchToProps (dispatch) {
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Nav)
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Nav))

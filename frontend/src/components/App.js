@@ -15,17 +15,30 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        <Nav />
         <Switch>
           <Route path="/" exact render={() => (
+            <React.Fragment>
+            <Nav />
             <ListPosts />
+            </React.Fragment>
           )} />
-          <Route path="/404" component={NotFound} status={404} />
+          <Route path="/404" status={404} render={() => (
+            <React.Fragment>
+            <Nav />
+            <NotFound />
+            </React.Fragment>
+          )} />
           <Route path="/:category" exact render={() => (
+            <React.Fragment>
+            <Nav />
             <ListPosts />
+            </React.Fragment>
           )} />
           <Route path="/:category/:postId" exact render={() => (
+            <React.Fragment>
+            <Nav />
             <SinglePost />
+            </React.Fragment>
           )} />
         </Switch>
       </div>
