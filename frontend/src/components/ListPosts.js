@@ -8,12 +8,13 @@ import Modal from 'react-modal'
 import PostForm from './PostForm'
 
 /* TODO: add confirmation when deleting posts/comments ?? */
-/* TODO: Add sorting function */
 
 class ListPosts extends Component {
   state = {
     postModalOpen: false,
     postId: null,
+    sortKey: 'timestamp',
+    sortOrder: 'asc',
   }
   openPostModal = (postId) => {
     this.setState(() => ({
@@ -35,10 +36,16 @@ class ListPosts extends Component {
   deletePost = (id) => {
     this.props.deletePost(id)
   }
+  onChangeSortKey = (value) => {
+    this.setState({sortKey: value})
+  }
+  onChangeSortOrder = (value) => {
+    this.setState({sortOrder: value})
+  }
   render() {
     const { category } = this.props.match.params
     const { posts, categories } = this.props
-    const { postModalOpen, postId } = this.state
+    const { postModalOpen, postId, sortKey, sortOrder } = this.state
     const postLink = (postCategory, postId) => `/${postCategory}/${postId}`
     let filteredPosts
     category ? filteredPosts = posts.filter((post) => post.category === category) : filteredPosts = posts
@@ -49,9 +56,37 @@ class ListPosts extends Component {
     } else {
     return (
       <div><h1>{category ? `Category: ${category}` : 'All Posts'}</h1>
+        <select defaultValue={sortKey} onChange={(e) => this.onChangeSortKey(e.target.value)}>
+          <option value="timestamp">Date/Time</option>
+          <option value="voteScore">Vote Score</option>
+          <option value="author">Author Name</option>
+          <option value="title">Title</option>
+        </select>
+        <select defaultValue={sortOrder} onChange={(e) => this.onChangeSortOrder(e.target.value)}>
+          <option value="asc">Ascending</option>
+          <option value="desc">Descending</option>
+        </select>
         <Link to="#" onClick={() => this.openPostModal()} className="add-post">New Post</Link>
         <ul className="posts">
-        {filteredPosts.map((post) => (
+        {filteredPosts.sort((a,b) => {
+          if (sortOrder === 'asc') {
+            if (a[sortKey] < b[sortKey]) {
+              return -1
+            } else if (a[sortKey] > b[sortKey]) {
+              return 1
+            } else {
+              return 0
+            }
+          } else {
+            if (a[sortKey] < b[sortKey]) {
+              return 1
+            } else if (a[sortKey] > b[sortKey]) {
+              return -1
+            } else {
+              return 0
+            }
+          }
+          }).map((post) => (
           <li className="post" key={post.id}>
             <h2>
               <Link to={postLink(post.category, post.id)}>{post.title}</Link>
