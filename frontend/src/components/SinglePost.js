@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { Link, withRouter, Redirect } from 'react-router-dom'
 import { connect } from 'react-redux'
-import { votePost, deletePost, getComments, deleteComment, voteComment } from '../actions'
+import { votePost, deletePost, getComments, deleteComment, voteComment, loadCommentCount } from '../actions'
 import Modal from 'react-modal'
 import PostForm from './PostForm'
 import CommentForm from './CommentForm'
@@ -39,6 +39,9 @@ class SinglePost extends Component {
     this.props.getComments(this.props.match.params.postId)
   }
   componentWillReceiveProps(nextProps) {
+    if (nextProps.comments !== this.props.comments) {
+      this.props.loadCommentCount(this.props.match.params.postId)
+    }
     if (nextProps.posts.length !== 0) {
       if (nextProps.posts.find((post) => post.id === nextProps.match.params.postId) === undefined) {
         this.setState({ notFound: true })
@@ -86,7 +89,7 @@ class SinglePost extends Component {
               <Link to="#" onClick={this.downVote}>&#9660;</Link>
               {post.voteScore}
             </span>
-            <span className="comments">Comments: {comments.length}</span>
+            <span className="comments">Comments: {post.commentCount}</span>
           </p>
           <h2>Comments</h2>
           <Link to="#" onClick={() => this.openCommentModal(post.id)} className="add-comment">New Comment</Link>
@@ -161,6 +164,7 @@ function mapDispatchToProps (dispatch) {
     getComments: (id) => dispatch(getComments(id)),
     deleteComment: (id) => dispatch(deleteComment(id)),
     voteComment: (id, vote) => dispatch(voteComment(id, vote)),
+    loadCommentCount: (id) => dispatch(loadCommentCount(id)),
   }
 }
 

@@ -31,6 +31,21 @@ export function loadPostsSuccess(posts) {
   }
 }
 
+export function loadCommentCount(id) {
+  return function(dispatch) {
+    return postsAPI.getPost(id).then(post => {
+      dispatch(loadCommentCountSuccess(post))
+    })
+  }
+}
+
+export function loadCommentCountSuccess(post) {
+  return {
+    type: types.LOAD_COMMENT_COUNT,
+    post
+  }
+}
+
 export function votePost(postId, vote) {
   return function(dispatch) {
     return postsAPI.votePost(postId, vote).then(post => {

@@ -56,7 +56,7 @@ class ListPosts extends Component {
   }
   render() {
     const { category } = this.props.match.params
-    const { posts, categories } = this.props
+    const { posts } = this.props
     const { postModalOpen, postId, sortKey, sortOrder } = this.state
     const postLink = (postCategory, postId) => `/${postCategory}/${postId}`
     let filteredPosts

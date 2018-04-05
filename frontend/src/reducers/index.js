@@ -23,6 +23,16 @@ function postsReducer (state = initialState.posts, action) {
   switch(type) {
     case types.LOAD_POSTS:
       return [...posts]
+    case types.LOAD_COMMENT_COUNT:
+      index = state.findIndex(obj => obj.id === post.id)
+      return [
+        ...state.slice(0,index),
+        {
+          ...state[index],
+          commentCount: post.commentCount,
+        },
+        ...state.slice(index + 1)
+      ]
     case types.VOTE_POST:
       index = state.findIndex(obj => obj.id === post.id)
       return [
