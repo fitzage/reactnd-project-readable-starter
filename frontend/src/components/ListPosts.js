@@ -8,7 +8,6 @@ import Modal from 'react-modal'
 import PostForm from './PostForm'
 
 /* TODO: add confirmation when deleting posts/comments ?? */
-/* TODO: update comment count in state when adding or deleting comments */
 
 class ListPosts extends Component {
   state = {
