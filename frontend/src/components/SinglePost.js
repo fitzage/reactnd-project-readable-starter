@@ -7,8 +7,6 @@ import PostForm from './PostForm'
 import CommentForm from './CommentForm'
 import Markdown from 'react-markdown'
 
-/* TODO: trigger 404 for nonexistent posts */
-
 class SinglePost extends Component {
   state = {
     postModalOpen: false,

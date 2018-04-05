@@ -4,6 +4,26 @@
   font-family: Helvetica, Arial, sans-serif;
 }
 
+ul.nav {
+  list-style-type: none;
+  padding-left: 0;
+  text-align: right;
+}
+
+ul.nav li {
+  display: inline-block;
+  margin: 0 0 0 20px;
+}
+
+ul.nav li.home {
+  float: left;
+  margin: 0;
+}
+
+ul.nav li.active {
+  font-weight: bold;
+}
+
 ul.posts {
   list-style-type: none;
   padding-left: 0;
@@ -24,12 +44,6 @@ ul.posts li {
 
 span.vote a {
   text-decoration: none;
-}
-
-a.upvote {
-}
-
-a.downvote {
 }
 
 a.edit-post, a.delete-post {
