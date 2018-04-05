@@ -14,6 +14,7 @@ class SinglePost extends Component {
     postModalOpen: false,
     commentModalOpen: false,
     commentId: '',
+    notFound: false,
   }
   openPostModal = (postId) => {
     this.setState(() => ({
@@ -39,6 +40,13 @@ class SinglePost extends Component {
   componentDidMount() {
     this.props.getComments(this.props.match.params.postId)
   }
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.posts.length !== 0) {
+      if (nextProps.posts.find((post) => post.id === nextProps.match.params.postId) === undefined) {
+        this.setState({ notFound: true })
+      }
+    }
+  }
   upVote = () => {
     this.props.votePost(this.props.match.params.postId, {option: 'upVote'})
   }
@@ -60,7 +68,7 @@ class SinglePost extends Component {
     const { postId } = this.props.match.params
     const { postModalOpen, commentModalOpen, commentId } = this.state
     const post = posts.find((post) => post.id === postId)
-    if (post) {
+    if (this.state.notFound === false) {
     return (
       <div>
         {post &&

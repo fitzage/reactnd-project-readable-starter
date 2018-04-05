@@ -15,6 +15,7 @@ class ListPosts extends Component {
     postId: null,
     sortKey: 'timestamp',
     sortOrder: 'asc',
+    notFound: false,
   }
   openPostModal = (postId) => {
     this.setState(() => ({
@@ -42,6 +43,13 @@ class ListPosts extends Component {
   onChangeSortOrder = (value) => {
     this.setState({sortOrder: value})
   }
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.categories.length !== 0) {
+      if (nextProps.match.params.category && nextProps.categories.filter((obj) => obj.path === nextProps.match.params.category).length === 0) {
+        this.setState({ notFound: true })
+      }
+    }
+  }
   render() {
     const { category } = this.props.match.params
     const { posts, categories } = this.props
@@ -49,11 +57,7 @@ class ListPosts extends Component {
     const postLink = (postCategory, postId) => `/${postCategory}/${postId}`
     let filteredPosts
     category ? filteredPosts = posts.filter((post) => post.category === category) : filteredPosts = posts
-    if (category && categories.filter((obj) => obj.name === category).length === 0) {
-      return (
-        <Redirect to='/404' />
-      )
-    } else {
+    if (this.state.notFound === false) {
     return (
       <div><h1>{category ? `Category: ${category}` : 'All Posts'}</h1>
         <select defaultValue={sortKey} onChange={(e) => this.onChangeSortKey(e.target.value)}>
@@ -129,7 +133,12 @@ class ListPosts extends Component {
           />
         </Modal>
       </div>
-    )}
+    )
+    } else {
+      return (
+        <Redirect to='/404' />
+      )
+    }
   }
 }
 
