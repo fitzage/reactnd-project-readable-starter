@@ -58,6 +58,7 @@ class SinglePost extends Component {
     this.props.voteComment(id, {option: 'downVote'})
   }
   deletePost = (id) => {
+    this.props.comments.map((comment) => this.props.deleteComment(comment.id))
     this.props.deletePost(id)
   }
 

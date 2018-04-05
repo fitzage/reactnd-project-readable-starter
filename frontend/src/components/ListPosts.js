@@ -1,13 +1,14 @@
 import React, { Component } from 'react'
 import { Link, withRouter, Redirect } from 'react-router-dom'
 import { connect } from 'react-redux'
-import { votePost, deletePost } from '../actions'
+import { votePost, deletePost, deleteComment, getComments } from '../actions'
 import Moment from 'react-moment'
 import Truncate from 'react-truncate'
 import Modal from 'react-modal'
 import PostForm from './PostForm'
 
 /* TODO: add confirmation when deleting posts/comments ?? */
+/* TODO: update comment count in state when adding or deleting comments */
 
 class ListPosts extends Component {
   state = {
@@ -35,6 +36,9 @@ class ListPosts extends Component {
     this.props.votePost(id, {option: 'downVote'})
   }
   deletePost = (id) => {
+    this.props.getComments(id).then(comments => {
+      this.props.comments.map((comment) => this.props.deleteComment(comment.id))
+    })
     this.props.deletePost(id)
   }
   onChangeSortKey = (value) => {
@@ -146,6 +150,7 @@ function mapStateToProps(state) {
   return {
     posts: state.posts,
     categories: state.categories,
+    comments: state.comments,
   }
 }
 
@@ -153,6 +158,8 @@ function mapDispatchToProps (dispatch) {
   return {
     votePost: (id, vote) => dispatch(votePost(id, vote)),
     deletePost: (id) => dispatch(deletePost(id)),
+    getComments: (id) => dispatch(getComments(id)),
+    deleteComment: (id) => dispatch(deleteComment(id)),
   }
 }
 

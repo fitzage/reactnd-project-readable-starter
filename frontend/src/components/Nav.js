@@ -4,8 +4,6 @@ import { connect } from 'react-redux'
 import { loadCategories } from '../actions'
 import '../App.css'
 
-/* TODO: Mark active category */
-
 class Nav extends Component  {
   componentDidMount() {
     if (this.props.categories.length === 0) {
