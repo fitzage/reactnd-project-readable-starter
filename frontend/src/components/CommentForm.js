@@ -68,7 +68,10 @@ class PostForm extends Component {
             onChange={(event) => this.updateCommentData(event.target.name,event.target.value)}
           />
           </label>
-          <button>{commentId ? 'Edit Comment' : 'Create Comment'}</button>
+          {(body && author)
+            ? <button>{commentId ? 'Edit Comment' : 'Create Comment'}</button>
+            : <button disabled>{commentId ? 'Edit Comment' : 'Create Comment'}</button>
+          }
         </form>
       </div>
     )

@@ -4,8 +4,6 @@ import { connect } from 'react-redux'
 import serializeForm from 'form-serialize'
 import { addPost, editPost } from '../actions'
 
-/* TODO: Validate fields before submit. */
-
 const uuidv1 = require('uuid/v1')
 class PostForm extends Component {
   state = {
@@ -48,7 +46,7 @@ class PostForm extends Component {
   }
   render() {
     const { postId, categories, categoryId } = this.props
-    const { id, title, body, author } = this.state
+    const { id, title, body, author, category } = this.state
     return (
       <div className="add-edit-post">
         <h1>{!postId ? 'New Post' : 'Edit Post'}</h1>
@@ -93,8 +91,10 @@ class PostForm extends Component {
             onChange={(event) => this.updatePostData(event.target.name,event.target.value)}
           />
           </label>
-
-          <button>{postId ? 'Edit Post' : 'Create Post'}</button>
+          {(title && body && category && author)
+            ? <button >{postId ? 'Edit Post' : 'Create Post'}</button>
+            : <button disabled>{postId ? 'Edit Post' : 'Create Post'}</button>
+          }
         </form>
       </div>
     )
