@@ -8,6 +8,10 @@ import NotFound from './NotFound'
 import '../App.css'
 import { loadPosts } from '../actions'
 
+/**
+ * @description Loads initial post data from API, sets up routes and main componenst
+ * @constructor
+ */
 class App extends Component {
   componentWillMount() {
     this.props.loadPosts()
