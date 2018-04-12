@@ -168,7 +168,6 @@ class ListPosts extends Component {
                 }
               })
               .map(post => (
-                {/* Map sorted posts for display */}
                 <li className="post" key={post.id}>
                   <h2>
                     <Link to={postLink(post.category, post.id)}>
