@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Link, withRouter, Redirect } from "react-router-dom";
 import { connect } from "react-redux";
-import { deleteComment, voteComment, loadCommentCount } from "../actions";
+import { voteComment, loadCommentCount } from "../actions";
 import Modal from "react-modal";
 import Moment from "react-moment";
 import PostForm from "./PostForm";
@@ -77,6 +77,7 @@ class SinglePost extends Component {
       closePostModal,
       postModalOpen,
       onDeletePost,
+      deleteComment,
       vote
     } = this.props;
     const { postId } = this.props.match.params;
@@ -155,7 +156,7 @@ class SinglePost extends Component {
                       </Link>
                       <Link
                         to="#"
-                        onClick={() => this.props.deleteComment(comment.id)}
+                        onClick={() => deleteComment(comment.id)}
                         className="delete-post"
                       >
                         X

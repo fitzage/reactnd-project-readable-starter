@@ -55,7 +55,6 @@ class PostForm extends Component {
    * @param {string} value - Value to go in state
    */
   updateCommentData(name, value) {
-    console.log(value);
     let obj = {};
     obj[name] = value;
     this.setState(obj);

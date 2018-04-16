@@ -123,6 +123,7 @@ class App extends Component {
                   closePostModal={this.closePostModal}
                   postModalOpen={this.state.postModalOpen}
                   onDeletePost={this.onDeletePost}
+                  deleteComment={this.props.deleteComment}
                   vote={this.vote}
                   getComments={this.props.getComments}
                 />
