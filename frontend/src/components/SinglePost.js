@@ -10,6 +10,7 @@ import {
   loadCommentCount
 } from "../actions";
 import Modal from "react-modal";
+import Moment from "react-moment";
 import PostForm from "./PostForm";
 import CommentForm from "./CommentForm";
 import Markdown from "react-markdown";
@@ -153,18 +154,30 @@ class SinglePost extends Component {
                 </span>
               </h1>
               <Markdown source={post.body} />
-              <p className="vote-comments">
-                <span className="vote">
-                  <Link to="#" onClick={this.upVote}>
-                    &#9650;
-                  </Link>
-                  <Link to="#" onClick={this.downVote}>
-                    &#9660;
-                  </Link>
-                  {post.voteScore}
-                </span>
-                <span className="comments">Comments: {post.commentCount}</span>
-              </p>
+              <div className="meta">
+                <p className="author-time">
+                  <span className="author">{post.author}</span>
+                  <span className="date-time">
+                    <Moment format="MMMM D, YYYY, h:mm a">
+                      {post.timestamp}
+                    </Moment>
+                  </span>
+                </p>
+                <p className="vote-comments">
+                  <span className="vote">
+                    <Link to="#" onClick={this.upVote}>
+                      &#9650;
+                    </Link>
+                    <Link to="#" onClick={this.downVote}>
+                      &#9660;
+                    </Link>
+                    {post.voteScore}
+                  </span>
+                  <span className="comments">
+                    Comments: {post.commentCount}
+                  </span>
+                </p>
+              </div>
               <h2>Comments</h2>
               <Link
                 to="#"
