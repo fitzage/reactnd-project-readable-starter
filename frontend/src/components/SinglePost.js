@@ -86,18 +86,38 @@ class SinglePost extends Component {
       }
     }
   }
+  /**
+   * @description increase voteCount on post
+   * @param {string} id - ID of post to be voted on
+   */
   upVote = () => {
     this.props.votePost(this.props.match.params.postId, { option: "upVote" });
   };
+  /**
+   * @description decrease voteCount on post
+   * @param {string} id - ID of post to be voted on
+   */
   downVote = () => {
     this.props.votePost(this.props.match.params.postId, { option: "downVote" });
   };
+  /**
+   * @description increase voteCount on comment
+   * @param {string} id - ID of comment to be voted on
+   */
   upVoteComment = id => {
     this.props.voteComment(id, { option: "upVote" });
   };
+  /**
+   * @description decrease voteCount on comment
+   * @param {string} id - ID of comment to be voted on
+   */
   downVoteComment = id => {
     this.props.voteComment(id, { option: "downVote" });
   };
+  /**
+   * @description deletes all comments connected to post and then deletes post
+   * @param {string}
+   */
   deletePost = id => {
     this.props.comments.map(comment => this.props.deleteComment(comment.id));
     this.props.deletePost(id);
