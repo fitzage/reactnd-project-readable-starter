@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import { Link, withRouter, Redirect } from "react-router-dom";
 import { connect } from "react-redux";
-import { votePost, deletePost, deleteComment, getComments } from "../actions";
 import Moment from "react-moment";
 import Truncate from "react-truncate";
 import Modal from "react-modal";
@@ -14,56 +13,11 @@ import PostForm from "./PostForm";
  */
 class ListPosts extends Component {
   state = {
-    postModalOpen: false,
-    postId: null,
     sortKey: "timestamp",
     sortOrder: "asc",
     notFound: false
   };
-  /**
-   * @description Opens new/edit post modal
-   * @param {string} postId - ID of post to be edited, if present
-   * @param {boolean} postModalOpen - Sets local state to trigger rendering of modal
-   */
-  openPostModal = postId => {
-    this.setState(() => ({
-      postModalOpen: true,
-      postId
-    }));
-  };
-  /**
-   * @description Closes new/edit post modal
-   * @param {boolean} postModalOpen - Sets local state to trigger closing of modal
-   */
-  closePostModal = () => {
-    this.setState(() => ({
-      postModalOpen: false
-    }));
-  };
-  /**
-   * @description increase voteCount on post
-   * @param {string} id - ID of post to be voted on
-   */
-  upVote = id => {
-    this.props.votePost(id, { option: "upVote" });
-  };
-  /**
-   * @description decrease voteCount on post
-   * @param {string} id - ID of post to be voted on
-   */
-  downVote = id => {
-    this.props.votePost(id, { option: "downVote" });
-  };
-  /**
-   * @description delete a post and associated comments
-   * @param {string} id - ID of post to be deleted
-   */
-  deletePost = id => {
-    this.props.getComments(id).then(comments => {
-      this.props.comments.map(comment => this.props.deleteComment(comment.id));
-    });
-    this.props.deletePost(id);
-  };
+
   /**
    * @description Called to change the key to sort by. Sets this value in local state.
    * @param {string} value - Name of field to sort by
@@ -97,8 +51,16 @@ class ListPosts extends Component {
   }
   render() {
     const { category } = this.props.match.params;
-    const { posts } = this.props;
-    const { postModalOpen, postId, sortKey, sortOrder } = this.state;
+    const {
+      posts,
+      openPostModal,
+      closePostModal,
+      postModalOpen,
+      onDeletePost,
+      vote,
+      postId
+    } = this.props;
+    const { sortKey, sortOrder } = this.state;
     /**
      * @description Generates permalink for post
      * @param {string} postCategory - category for post that needs permalink constructed
@@ -138,11 +100,7 @@ class ListPosts extends Component {
             <option value="desc">Descending</option>
           </select>
           {/* Open new post modal with form by triggering appropriate function */}
-          <Link
-            to="#"
-            onClick={() => this.openPostModal()}
-            className="add-post"
-          >
+          <Link to="#" onClick={() => openPostModal()} className="add-post">
             New Post
           </Link>
           <ul className="posts">
@@ -176,14 +134,14 @@ class ListPosts extends Component {
                     <span>
                       <Link
                         to="#"
-                        onClick={() => this.openPostModal(post.id)}
+                        onClick={() => openPostModal(post.id)}
                         className="edit-post"
                       >
                         &#9998;
                       </Link>
                       <Link
                         to="#"
-                        onClick={() => this.deletePost(post.id)}
+                        onClick={() => onDeletePost(post.id)}
                         className="delete-post"
                       >
                         X
@@ -209,14 +167,14 @@ class ListPosts extends Component {
                       <span className="vote">
                         <Link
                           to="#"
-                          onClick={() => this.upVote(post.id)}
+                          onClick={() => vote(post.id, "upVote")}
                           className="upvote"
                         >
                           &#9650;
                         </Link>
                         <Link
                           to="#"
-                          onClick={() => this.downVote(post.id)}
+                          onClick={() => vote(post.id, "downVote")}
                           className="downvote"
                         >
                           &#9660;
@@ -237,12 +195,12 @@ class ListPosts extends Component {
             isOpen={postModalOpen}
             contentLabel="Modal"
           >
-            <Link className="close-modal" to="#" onClick={this.closePostModal}>
+            <Link className="close-modal" to="#" onClick={closePostModal}>
               X
             </Link>
             <PostForm
               postId={postId}
-              closePostModal={this.closePostModal}
+              closePostModal={closePostModal}
               categoryId={category}
             />
           </Modal>
@@ -255,23 +213,13 @@ class ListPosts extends Component {
   }
 }
 
-function mapStateToProps(state) {
+function mapStateToProps(state, ownProps) {
   return {
     posts: state.posts,
     categories: state.categories,
-    comments: state.comments
+    comments: state.comments,
+    ...ownProps
   };
 }
 
-function mapDispatchToProps(dispatch) {
-  return {
-    votePost: (id, vote) => dispatch(votePost(id, vote)),
-    deletePost: id => dispatch(deletePost(id)),
-    getComments: id => dispatch(getComments(id)),
-    deleteComment: id => dispatch(deleteComment(id))
-  };
-}
-
-export default withRouter(
-  connect(mapStateToProps, mapDispatchToProps)(ListPosts)
-);
+export default withRouter(connect(mapStateToProps)(ListPosts));

@@ -1,14 +1,7 @@
 import React, { Component } from "react";
 import { Link, withRouter, Redirect } from "react-router-dom";
 import { connect } from "react-redux";
-import {
-  votePost,
-  deletePost,
-  getComments,
-  deleteComment,
-  voteComment,
-  loadCommentCount
-} from "../actions";
+import { deleteComment, voteComment, loadCommentCount } from "../actions";
 import Modal from "react-modal";
 import Moment from "react-moment";
 import PostForm from "./PostForm";
@@ -21,20 +14,9 @@ import Markdown from "react-markdown";
  */
 class SinglePost extends Component {
   state = {
-    postModalOpen: false,
-    commentModalOpen: false,
     commentId: "",
+    commentModalOpen: false,
     notFound: false
-  };
-  /**
-   * @description Opens new/edit post modal
-   * @param {string} postId - ID of post to be edited, if present
-   * @param {boolean} postModalOpen - Sets local state to trigger rendering of modal
-   */
-  openPostModal = postId => {
-    this.setState(() => ({
-      postModalOpen: true
-    }));
   };
   /**
    * @description Opens new/edit comment modal
@@ -46,15 +28,6 @@ class SinglePost extends Component {
     this.setState(() => ({
       commentModalOpen: true,
       commentId
-    }));
-  };
-  /**
-   * @description Closes new/edit post modal
-   * @param {boolean} postModalOpen - Sets local state to trigger closing of modal
-   */
-  closePostModal = () => {
-    this.setState(() => ({
-      postModalOpen: false
     }));
   };
   /**
@@ -88,20 +61,6 @@ class SinglePost extends Component {
     }
   }
   /**
-   * @description increase voteCount on post
-   * @param {string} id - ID of post to be voted on
-   */
-  upVote = () => {
-    this.props.votePost(this.props.match.params.postId, { option: "upVote" });
-  };
-  /**
-   * @description decrease voteCount on post
-   * @param {string} id - ID of post to be voted on
-   */
-  downVote = () => {
-    this.props.votePost(this.props.match.params.postId, { option: "downVote" });
-  };
-  /**
    * @description increase voteCount on comment
    * @param {string} id - ID of comment to be voted on
    */
@@ -115,19 +74,19 @@ class SinglePost extends Component {
   downVoteComment = id => {
     this.props.voteComment(id, { option: "downVote" });
   };
-  /**
-   * @description deletes all comments connected to post and then deletes post
-   * @param {string}
-   */
-  deletePost = id => {
-    this.props.comments.map(comment => this.props.deleteComment(comment.id));
-    this.props.deletePost(id);
-  };
 
   render() {
-    const { comments, posts } = this.props;
+    const {
+      comments,
+      posts,
+      openPostModal,
+      closePostModal,
+      postModalOpen,
+      onDeletePost,
+      vote
+    } = this.props;
     const { postId } = this.props.match.params;
-    const { postModalOpen, commentModalOpen, commentId } = this.state;
+    const { commentModalOpen, commentId } = this.state;
     const post = posts.find(post => post.id === postId);
     if (this.state.notFound === false) {
       return (
@@ -139,14 +98,14 @@ class SinglePost extends Component {
                 <span>
                   <Link
                     to="#"
-                    onClick={() => this.openPostModal(post.id)}
+                    onClick={() => openPostModal(post.id)}
                     className="edit-post"
                   >
                     &#9998;
                   </Link>
                   <Link
                     to="/"
-                    onClick={() => this.deletePost(postId)}
+                    onClick={() => onDeletePost(postId)}
                     className="delete-post"
                   >
                     X
@@ -165,10 +124,10 @@ class SinglePost extends Component {
                 </p>
                 <p className="vote-comments">
                   <span className="vote">
-                    <Link to="#" onClick={this.upVote}>
+                    <Link to="#" onClick={() => vote(post.id, "upVote")}>
                       &#9650;
                     </Link>
-                    <Link to="#" onClick={this.downVote}>
+                    <Link to="#" onClick={() => vote(post.id, "downVote")}>
                       &#9660;
                     </Link>
                     {post.voteScore}
@@ -237,10 +196,10 @@ class SinglePost extends Component {
             isOpen={postModalOpen}
             contentLabel="Modal"
           >
-            <Link className="close-modal" to="#" onClick={this.closePostModal}>
+            <Link className="close-modal" to="#" onClick={closePostModal}>
               X
             </Link>
-            <PostForm postId={postId} closePostModal={this.closePostModal} />
+            <PostForm postId={postId} closePostModal={closePostModal} />
           </Modal>
           <Modal
             className="modal"
@@ -270,19 +229,16 @@ class SinglePost extends Component {
   }
 }
 
-function mapStateToProps(state) {
+function mapStateToProps(state, ownProps) {
   return {
     posts: state.posts,
-    comments: state.comments
+    comments: state.comments,
+    ...ownProps
   };
 }
 
 function mapDispatchToProps(dispatch) {
   return {
-    votePost: (id, vote) => dispatch(votePost(id, vote)),
-    deletePost: id => dispatch(deletePost(id)),
-    getComments: id => dispatch(getComments(id)),
-    deleteComment: id => dispatch(deleteComment(id)),
     voteComment: (id, vote) => dispatch(voteComment(id, vote)),
     loadCommentCount: id => dispatch(loadCommentCount(id))
   };

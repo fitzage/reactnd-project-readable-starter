@@ -139,10 +139,11 @@ class PostForm extends Component {
   }
 }
 
-function mapStateToProps(state) {
+function mapStateToProps(state, ownProps) {
   return {
     posts: state.posts,
-    categories: state.categories
+    categories: state.categories,
+    ...ownProps
   };
 }
 
