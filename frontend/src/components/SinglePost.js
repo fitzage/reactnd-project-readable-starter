@@ -61,18 +61,12 @@ class SinglePost extends Component {
     }
   }
   /**
-   * @description increase voteCount on comment
+   * @description increase or decrease voteCount on specified comment
    * @param {string} id - ID of comment to be voted on
+   * @param {string} vote - upVote or downVote
    */
-  upVoteComment = id => {
-    this.props.voteComment(id, { option: "upVote" });
-  };
-  /**
-   * @description decrease voteCount on comment
-   * @param {string} id - ID of comment to be voted on
-   */
-  downVoteComment = id => {
-    this.props.voteComment(id, { option: "downVote" });
+  voteComment = (id, vote) => {
+    this.props.voteComment(id, { option: vote });
   };
 
   render() {
@@ -172,13 +166,15 @@ class SinglePost extends Component {
                       <span className="vote">
                         <Link
                           to="#"
-                          onClick={() => this.upVoteComment(comment.id)}
+                          onClick={() => this.voteComment(comment.id, "upVote")}
                         >
                           &#9650;
                         </Link>
                         <Link
                           to="#"
-                          onClick={() => this.downVoteComment(comment.id)}
+                          onClick={() =>
+                            this.voteComment(comment.id, "downVote")
+                          }
                         >
                           &#9660;
                         </Link>
