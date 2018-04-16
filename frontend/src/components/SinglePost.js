@@ -191,6 +191,7 @@ class SinglePost extends Component {
             overlayClassName="overlay"
             isOpen={postModalOpen}
             contentLabel="Modal"
+            onRequestClose={closePostModal}
           >
             <Link className="close-modal" to="#" onClick={closePostModal}>
               X
@@ -202,6 +203,7 @@ class SinglePost extends Component {
             overlayClassName="overlay"
             isOpen={commentModalOpen}
             contentLabel="Modal"
+            onRequestClose={this.closeCommentModal}
           >
             <Link
               className="close-modal"

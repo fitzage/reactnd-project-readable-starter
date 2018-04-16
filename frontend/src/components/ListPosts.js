@@ -194,6 +194,7 @@ class ListPosts extends Component {
             overlayClassName="overlay"
             isOpen={postModalOpen}
             contentLabel="Modal"
+            onRequestClose={closePostModal}
           >
             <Link className="close-modal" to="#" onClick={closePostModal}>
               X
