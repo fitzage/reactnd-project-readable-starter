@@ -29,7 +29,7 @@ class PostForm extends Component {
   handleSubmit = e => {
     e.preventDefault();
     let values = serializeForm(e.target, { hash: true });
-    this.props.history.push(`/${values.category}/${values.id}`);
+    this.props.history.push(`/${this.state.category}/${values.id}`);
     this.props.closePostModal();
     if (this.props.postId) {
       this.props.editPost(values);
